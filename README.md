@@ -1,8 +1,9 @@
+
 # OS_Labs
-beginner-friendly collection of hands-on Operating Systems labs written in C for Ubuntu. Each lab turns a core OS concept (processes, pipes, threads, scheduling, memory) into a program you can compile and run, with explanations of the concepts, the commands used, common errors, and step-by-step fixes.
 
+A beginner-friendly collection of hands-on Operating Systems labs written in C for Ubuntu Linux. Each lab demonstrates a core Operating Systems (OS) concept, such as process management, inter-process communication (IPC), threads, CPU scheduling, and memory management, through practical programs.
 
----
+Each lab includes explanations of the concepts, compilation and execution commands, common errors, step-by-step troubleshooting, key takeaways, and exercises to reinforce learning.
 
 ## Table of Contents
 
@@ -15,92 +16,143 @@ beginner-friendly collection of hands-on Operating Systems labs written in C for
 - [Repository Structure](#repository-structure)
 - [Credits](#credits)
 
----
-
 ## Lab Index
 
-| Lab | Topic | Concepts | Status |
-|-----|-------|----------|--------|
-| [Lab 01](lab01-pipe/) | Parent-child communication with pipes | pipe, fork, blocking read, IPC | Done |
-| Lab 02 | Process creation | fork, exec, wait | Planned |
-| Lab 03 | Threads | pthread create and join | Planned |
-| Lab 04 | Race conditions | mutexes, critical sections | Planned |
-| Lab 05 | Semaphores | producer-consumer | Planned |
-| Lab 06 | CPU scheduling | FCFS, SJF, Round Robin | Planned |
-| Lab 07 | Memory management | allocation, page replacement | Planned |
-| Lab 08 | Deadlock | Banker's algorithm | Planned |
-
----
+| Lab | Topic | Concepts Covered | Status |
+|---|---|---|---|
+| Lab 01 | Parent-Child Communication Using Pipes | `pipe()`, `fork()`, blocking reads, IPC | Completed |
+| Lab 02 | Process Creation | `fork()`, `exec()`, `wait()` | Planned |
+| Lab 03 | Threads | `pthread_create()`, `pthread_join()` | Planned |
+| Lab 04 | Race Conditions | Mutexes, critical sections, synchronization | Planned |
+| Lab 05 | Semaphores | Producer-Consumer Problem, synchronization | Planned |
+| Lab 06 | CPU Scheduling | FCFS, SJF, Round Robin | Planned |
+| Lab 07 | Memory Management | Memory allocation, page replacement algorithms | Planned |
+| Lab 08 | Deadlock | Deadlock prevention, avoidance, Banker's Algorithm | Planned |
 
 ## Prerequisites
 
-- Ubuntu (or WSL on Windows)
-- `gcc` compiler
-- Basic C (variables, functions, arrays)
-- Basic terminal use
+Before starting these labs, make sure you have:
 
----
+- Ubuntu Linux or WSL (Windows Subsystem for Linux).
+- GCC compiler.
+- Basic knowledge of C programming, including variables, functions, loops, and arrays.
+- Basic familiarity with terminal commands.
 
 ## Environment Setup
 
+### 1. Update Package Lists
+
 ```bash
 sudo apt update
+```
+
+### 2. Install Required Tools
+
+```bash
 sudo apt install build-essential gdb valgrind
+```
+
+These packages provide the following tools:
+
+- **build-essential:** Installs GCC, Make, and essential development tools and libraries.
+- **GDB:** A debugger for identifying and troubleshooting program errors.
+- **Valgrind:** Helps detect memory errors and memory leaks.
+
+### 3. Verify the GCC Installation
+
+```bash
 gcc --version
 ```
 
-- `build-essential` gives `gcc`, `make`, and the C headers
-- `gdb` is the debugger
-- `valgrind` finds memory errors
-- `gcc --version` confirms the install worked
-
----
+If GCC is installed correctly, this command displays its version information.
 
 ## Basic Workflow for Every Lab
 
+Follow these steps whenever you work on a lab.
+
+### 1. Navigate to the Lab Directory
+
 ```bash
-cd ~/os-labs/labXX-name       # go to the lab folder
-ls                            # check the files are there
-head -3 program.c             # make sure the file starts with real C code
-gcc program.c -o program      # compile
-./program                     # run
+cd ~/os-labs/labXX-name
 ```
 
-For thread labs, add `-pthread` when compiling.
+Replace `labXX-name` with the actual directory name of the lab.
 
----
+### 2. List the Files
+
+```bash
+ls
+```
+
+This displays the files in the current directory.
+
+### 3. Check the Source Code
+
+```bash
+head -n 3 program.c
+```
+
+This displays the first three lines of the C source file so you can verify that it contains the expected code.
+
+### 4. Compile the Program
+
+```bash
+gcc program.c -o program
+```
+
+This compiles `program.c` and creates an executable named `program`.
+
+For programs that use POSIX threads, compile with the `-pthread` option:
+
+```bash
+gcc program.c -o program -pthread
+```
+
+### 5. Run the Program
+
+```bash
+./program
+```
+
+Observe the output and experiment with the code to understand the underlying OS concept.
 
 ## Essential Terminal Commands
 
 | Command | Purpose |
-|---------|---------|
-| `pwd` | Show the current folder |
-| `ls` | List files |
-| `cd folder` | Move into a folder |
-| `mkdir -p path` | Create a folder (and parents) |
-| `nano file` | Edit a file (Ctrl + O, Enter to save, Ctrl + X to exit) |
-| `cat file` | Print a file |
-| `head -3 file` | Print the first 3 lines of a file |
-| `gcc file.c -o name` | Compile |
-| `./name` | Run a compiled program |
+|---|---|
+| `pwd` | Displays the current working directory. |
+| `ls` | Lists files and directories. |
+| `cd folder` | Changes the current directory. |
+| `mkdir -p path` | Creates a directory, including any missing parent directories. |
+| `nano file.c` | Opens a file in the Nano text editor. |
+| `cat file.c` | Displays the contents of a file. |
+| `head -n 3 file.c` | Displays the first three lines of a file. |
+| `gcc file.c -o program` | Compiles a C source file into an executable. |
+| `./program` | Executes the compiled program. |
 
-**Terminal shortcuts:** Ctrl + Shift + C (copy), Ctrl + Shift + V (paste). Plain Ctrl + C **stops** a running program.
+### Useful Terminal Shortcuts
 
-
+- **Ctrl + Shift + C:** Copy selected terminal text.
+- **Ctrl + Shift + V:** Paste text into the terminal.
+- **Ctrl + O:** Save a file in Nano.
+- **Enter:** Confirm the filename when saving in Nano.
+- **Ctrl + X:** Exit Nano.
+- **Ctrl + C:** Interrupt a running terminal process.
 
 ## Golden Rules I Learned
 
-1. **Code goes inside the file. Commands go in the terminal.**
-2. Read the compiler error. It shows the exact file, line, and text that failed.
-3. When stuck, check the file contents first with `head` or `cat`.
-4. Do not use Ctrl + C to "fix" things; it only cancels.
-5. Run the program, change it, break it, fix it. That is how the concepts stick.
+These are some important lessons I learned while working on Operating Systems labs:
 
----
+1. **Code goes inside the source file; commands go in the terminal.** Do not paste terminal commands into a C source file.
+2. **Read compiler errors carefully.** They usually indicate the file, line number, and type of error.
+3. **Check file contents when something goes wrong.** Use `cat` or `head` to verify that the file contains the expected code.
+4. **Understand what a command does before using it.** For example, `Ctrl + C` interrupts a running process; it does not fix program errors.
+5. **Compile, run, experiment, and debug.** Change the code, observe the results, and fix any errors to strengthen your understanding.
+6. **Learn by experimenting.** Try different inputs and scenarios to see how operating system concepts behave in practice.
 
 ## Repository Structure
 
-```
+```text
 os-labs/
 ├── README.md
 ├── setup/
@@ -109,12 +161,32 @@ os-labs/
 │   ├── README.md
 │   └── pipe_demo.c
 ├── lab02-fork-exec-wait/
-└── ...
+│   ├── README.md
+│   └── process_demo.c
+├── lab03-threads/
+├── lab04-race-conditions/
+├── lab05-semaphores/
+├── lab06-cpu-scheduling/
+├── lab07-memory-management/
+└── lab08-deadlock/
 ```
 
-Each lab README follows the same pattern: goal, concepts learned, commands used, hurdles and fixes, key takeaways, experiments, exercises.
+*Note: This structure illustrates the planned organization. Add source files and README files as each lab is implemented.*
 
----
+### Lab Documentation Format
+
+Each lab's README follows a consistent structure:
+
+- **Goal:** What the lab demonstrates.
+- **Concepts Learned:** The OS concepts and system calls covered.
+- **Commands Used:** Compilation and execution commands.
+- **Hurdles and Fixes:** Common errors and their solutions.
+- **Key Takeaways:** Important lessons from the lab.
+- **Experiments:** Suggested modifications to the program.
+- **Exercises:** Practice tasks to reinforce understanding.
 
 ## Credits
-- Documentation, experiments, and write-ups by *[Javeria Zia]**.
+
+Created and documented by **Javeria Zia**.
+
+This repository is a practical learning journey through Operating Systems concepts using C programming and Ubuntu Linux. The labs are designed to help beginners build their understanding through hands-on experimentation, debugging, and documentation.

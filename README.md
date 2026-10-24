@@ -11,7 +11,6 @@ beginner-friendly collection of hands-on Operating Systems labs written in C for
 - [Environment Setup](#environment-setup)
 - [Basic Workflow for Every Lab](#basic-workflow-for-every-lab)
 - [Essential Terminal Commands](#essential-terminal-commands)
-- [Hurdles Faced So Far](#hurdles-faced-so-far)
 - [Golden Rules I Learned](#golden-rules-i-learned)
 - [Repository Structure](#repository-structure)
 - [Credits](#credits)

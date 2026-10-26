@@ -188,8 +188,8 @@ Both pipes and message queues support inter-process communication, but they diff
 ### 1. Creating the Lab Directory
 
 ```bash
-mkdir -p ~/os-labs/lab02-fork-exec-wait
-cd ~/os-labs/lab02-fork-exec-wait
+mkdir -p ~/os-labs/lab02-message-queue
+cd ~/os-labs/lab02-message-queue
 touch progfile
 ls -l
 ```
@@ -281,7 +281,7 @@ Identify the correct queue ID before removing the queue.
 **Solution:**
 
 ```bash
-head -n 3 fork-exec-wait.c
+head -n 3 message-queue.c
 ```
 
 Verify that the file contains C source code rather than terminal commands. Run compilation commands in the terminal.
